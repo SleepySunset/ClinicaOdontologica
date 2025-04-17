@@ -1,0 +1,28 @@
+.btn-accion {
+  background-color: rgba(255, 255, 255, 0);
+  border: none;
+  size: 60px;
+  :hover {
+    cursor: pointer;
+  }
+}
+.btn-cerrar-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: rgba(255, 255, 255, 0);
+  border: none;
+  size: 60px;
+  :hover {
+    cursor: pointer;
+  }
+}
+.btn-tabla {
+  background-color: rgba(255, 255, 255, 0);
+  border: none;
+}
+.btn-cerrar {
+  background-color: rgba(255, 255, 255, 0);
+  border: none;
+  size: 60px;
+}

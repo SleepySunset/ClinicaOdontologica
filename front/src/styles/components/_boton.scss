@@ -1,0 +1,16 @@
+.btn {
+  width: 100%;
+  margin: 1rem;
+  padding: 1rem 2rem;
+  border-radius: 20px;
+  font-family: $primary-font;
+  color: white;
+  background-color: $primary-color;
+  border-radius: 10px;
+  box-shadow: 2px 2px 14px rgba(0, 0, 0, 0.681);
+  z-index: 10;
+  &:hover {
+    cursor: pointer;
+    opacity: 60%;
+  }
+}

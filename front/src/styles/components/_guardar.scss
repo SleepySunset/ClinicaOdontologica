@@ -1,0 +1,43 @@
+.container-guardar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 500px;
+  padding: 2rem 3rem;
+  background-color: $secondary-color;
+  border-radius: 20px;
+  filter: drop-shadow(5px 5px 12px rgba(0, 0, 0, 0.321));
+  margin: 2rem 0;
+  .container-form {
+    width: 100%;
+
+    form {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      font-family: $primary-font;
+      color: $primary-color;
+
+      align-items: center;
+      .div-form {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+
+        input {
+          width: 100%;
+          font-family: $primary-font;
+          padding: 0.7rem 1.3rem;
+          margin-bottom: 1rem;
+          border: none;
+          border-radius: 5px;
+          box-shadow: 2px 2px 14px rgba(0, 0, 0, 0.681);
+        }
+        label {
+          padding: 0.5rem 0;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}

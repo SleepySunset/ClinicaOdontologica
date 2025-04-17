@@ -1,0 +1,38 @@
+.header {
+  display: flex;
+  background-color: $secondary-color;
+  width: 100%;
+  filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, 0.321));
+
+  img {
+    width: 350px;
+    height: 100%;
+    padding: 0 2rem;
+    filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, 0.604));
+  }
+  nav {
+    display: flex;
+    align-items: center;
+    width: 75%;
+    padding: 0 6rem 0 3rem;
+    ul {
+      width: 100%;
+      display: flex;
+      list-style: none;
+      justify-content: space-around;
+      li {
+        padding: 2rem;
+        filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.42));
+        :hover {
+          opacity: 70%;
+        }
+        .link {
+          text-decoration: none;
+          color: $primary-color;
+          font-size: 1.3rem;
+          font-family: $primary-font;
+        }
+      }
+    }
+  }
+}

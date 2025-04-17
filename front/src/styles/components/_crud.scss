@@ -1,0 +1,22 @@
+.crud-container {
+  position: relative;
+  width: 100%;
+  padding: 0 6rem;
+  margin-bottom: 2rem;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 2px 2px 14px rgba(0, 0, 0, 0.681);
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    align-items: center;
+    justify-content: center;
+    li {
+      display: flex;
+      padding: 1.5rem;
+      align-items: center;
+    }
+  }
+}

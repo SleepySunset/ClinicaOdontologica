@@ -1,0 +1,64 @@
+.container-buscarporid {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .container-input {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 400px;
+    .input-buscarporid {
+      width: 100%;
+      font-family: $primary-font;
+      padding: 0.8rem 1.5rem;
+      margin: 1rem;
+      border: none;
+      border-radius: 5px;
+      box-shadow: 2px 2px 14px rgba(0, 0, 0, 0.681);
+      z-index: 10;
+    }
+  }
+
+  .tabla-container {
+    position: relative;
+    margin: 2rem;
+    border-radius: 10px;
+    box-shadow: 2px 2px 14px rgba(0, 0, 0, 0.681);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    font-family: $primary-font;
+    padding: 2rem;
+    text-align: center;
+    table {
+      border: 1px inset;
+      margin-top: 1rem;
+      thead {
+        th {
+          background-color: $secondary-color;
+          padding: 0.5rem;
+        }
+      }
+      tbody {
+        tr {
+          td {
+            padding: 0.5rem;
+          }
+        }
+      }
+    }
+
+    .btn-modificareliminar {
+      background-color: white;
+      border: none;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}

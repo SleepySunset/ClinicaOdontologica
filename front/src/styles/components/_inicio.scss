@@ -1,0 +1,73 @@
+.container-inicio {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 60%;
+  margin: 3rem 0;
+
+  .logobg {
+    position: absolute;
+    opacity: 20%;
+    width: 800px;
+    height: 800px;
+    z-index: 1;
+  }
+
+  p {
+    font-family: $primary-font;
+    text-align: center;
+    font-size: 1.4rem;
+    padding: 2rem;
+    line-height: 2rem;
+    z-index: 10;
+    .link {
+      text-decoration: none;
+      color: #1399ff;
+      z-index: 10;
+    }
+  }
+  img {
+    width: 150px;
+    height: 150px;
+    opacity: 90%;
+    padding: 2rem;
+  }
+
+  .crud {
+    position: relative;
+    width: 100%;
+    padding: 0 6rem;
+    margin-bottom: 2rem;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 2px 2px 14px rgba(0, 0, 0, 0.681);
+    .texto-links {
+      z-index: 10;
+    }
+    div {
+      display: flex;
+      justify-content: center;
+    }
+  }
+  .tecnologias {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0 6rem;
+    margin-bottom: 2rem;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 2px 2px 14px rgba(0, 0, 0, 0.681);
+    div {
+      display: flex;
+      justify-content: center;
+      .logo {
+        width: 150px;
+        height: 150px;
+        opacity: 90%;
+        padding: 2rem;
+      }
+    }
+  }
+}

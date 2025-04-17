@@ -1,0 +1,31 @@
+footer {
+  display: flex;
+  padding: 1rem 2rem;
+  background-color: $primary-color;
+  box-shadow: 2px 2px 14px rgba(0, 0, 0, 0.681);
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  p {
+    font-family: $primary-font;
+    text-align: center;
+    font-size: 1.4rem;
+    padding: 1rem;
+    line-height: 2rem;
+    color: white;
+    max-width: 70%;
+  }
+  .container-foto {
+    max-width: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .foto-footer {
+      margin-right: 1.5rem;
+      width: 120px;
+      height: 120px;
+      border-radius: 30px;
+    }
+  }
+}
