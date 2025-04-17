@@ -1,17 +1,12 @@
-import { Titulo } from "../components/Titulo";
-import { Crud } from "../components/Crud";
 import { Footer } from "../components/Footer";
+import GuardarPaciente from "../components/GuardarPaciente";
 
 export function Paciente() {
   return (
     <>
       <div className="container-entidad">
-        <Titulo texto="Interfaz de paciente" />
-        <Crud
-          entidad={"paciente"}
-          textoRegistro={"Registrar paciente"}
-          textoBuscarTodos={"Ver todos los pacientes existentes"}
-        />
+        <h1>Interfaz de paciente</h1>
+        <GuardarPaciente />
       </div>
       <Footer />
     </>

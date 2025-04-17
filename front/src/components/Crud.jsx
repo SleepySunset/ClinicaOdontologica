@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Guardar } from "./Guardar";
 import { BuscarPorId } from "./BuscarPorId";
 import { BuscarTodos } from "./BuscarTodos";
-import { Boton } from "./Boton";
+import Boton from "./Boton";
 
 export function Crud({ entidad, textoRegistro, textoBuscarTodos }) {
   const [verForm, setVerForm] = useState(false);

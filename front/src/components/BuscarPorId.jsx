@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Boton } from "./Boton";
+import Boton from "./Boton";
 import { Guardar } from "./Guardar";
 import { Eliminar } from "./Eliminar";
 import { BotonAccion } from "./BotonAccion";

@@ -1,14 +1,12 @@
 import { Link } from "react-router-dom";
-import { Titulo } from "../components/Titulo";
 import { Footer } from "../components/Footer";
 
 export function Inicio() {
   return (
     <>
       <div className="container-inicio">
-        <img className="logobg" src="../src/assets/logo1.png" />
+        <img className="logobg" src="./img/logo1.png" alt="Logo OdontoSalud" />
 
-        <Titulo texto="Bienvenido a OdontoSalud" />
         <div className="crud">
           <div className="texto-links">
             <p>
@@ -32,25 +30,26 @@ export function Inicio() {
             </p>
           </div>
           <div>
-            <img src="../src/assets/edit.png" />
-            <img src="../src/assets/file.png" />
-            <img src="../src/assets/changes.png" />
-            <img src="../src/assets/delete.png" />
+            <img src="./img/edit.png" alt="Logo de Create"/>
+            <img src="./img/file.png" alt="Logo de Read" />
+            <img src="./img/changes.png"  alt="Logo de Update"/>
+            <img src="./img/delete.png" alt="Logo de Delete"/>
           </div>
         </div>
         <div className="tecnologias">
           <div className="texto-links">
             <p>
-              El backend de la aplicación se desarrolló en Java haciendo uso de
-              SpringBoot y el front se desarrolló con React y se estilizó con
+              El backend de la aplicación se desarrolló en Node haciendo uso de
+              Express y el front se desarrolló con React y se estilizó con
               Sass.
             </p>
           </div>
           <div>
-            <img src="../src/assets/javalogo.webp" />
-            <img src="../src/assets/springlogo.png" />
-            <img src="../src/assets/reactlogo.png" />
-            <img src="../src/assets/sasslogo.png" />
+          <img src="/img/node.png" />
+            <img src="/img/express.png" />
+            
+            <img src="/img/react.png" />
+            <img src="/img/sass.png" />
           </div>
         </div>
       </div>

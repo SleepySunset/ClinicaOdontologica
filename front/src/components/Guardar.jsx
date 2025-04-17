@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Boton } from "./Boton";
+import Boton from "./Boton";
 import { BotonAccion } from "./BotonAccion";
 import PropTypes from "prop-types";
 

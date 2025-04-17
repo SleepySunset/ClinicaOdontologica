@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 export function Header() {
   return (
     <header className="header">
-      <img src="../src/assets/logo2.png" />
+      <img src="./img/logo2.png" alt="Logo OdontoSalud"/>
       <nav>
         <ul>
           <li>
