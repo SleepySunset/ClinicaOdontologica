@@ -1,4 +1,4 @@
-const { sequelize } = require("../config/mysql");
+const { sequelize } = require("../config/postgres");
 const { DataTypes } = require("sequelize");
 
 const Paciente = sequelize.define("paciente", {

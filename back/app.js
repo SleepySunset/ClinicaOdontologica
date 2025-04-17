@@ -2,7 +2,7 @@ const express = require("express")
 require("dotenv").config();
 const cors = require("cors")
 const app = express()
-const {dbConnectMySql} = require("./config/mysql")
+const { dbConnectPostgres} = require("./config/postgres")
 
 app.use(cors())
 app.use(express.json());
@@ -17,4 +17,4 @@ app.listen(port, () =>{
 })
 
 
-dbConnectMySql();
+dbConnectPostgres();
