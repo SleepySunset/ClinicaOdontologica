@@ -1,6 +1,7 @@
-const API_BASE_URL_LOCALHOST = "http://localhost:8080";
+//const API_BASE_URL_LOCALHOST = "http://localhost:8080";
+const API_BASE_URL_CLOUD = "https://clinicabackend-lzwg.onrender.com";
 
-export const API_BASE_URL = API_BASE_URL_LOCALHOST;
+export const API_BASE_URL = API_BASE_URL_CLOUD;
 
 export const ENDPOINTS = {
 

@@ -2,13 +2,14 @@ import { ENDPOINTS } from "../config/config";
 import { useState } from "react";
 import Boton from "./Boton";
 import axios from "axios";
+import { IoCloseSharp } from "react-icons/io5";
 
-const GuardarPaciente = () => {
+
+const GuardarPaciente = ({ onClose, onRefresh }) => {
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
   const [dni, setDni] = useState("");
-  const [fecha, setFecha] = useState("");
-  const [domicilio, setDomicilio] = useState("");
+  const [fechaIngreso, setFechaIngreso] = useState("");
   const [calle, setCalle] = useState("");
   const [numero, setNumero] = useState("");
   const [localidad, setLocalidad] = useState("");
@@ -16,134 +17,142 @@ const GuardarPaciente = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
-      const response = await axios.post(ENDPOINTS.DOMICILIO, {
+      const domicilioResponse = await axios.post(ENDPOINTS.DOMICILIO, {
         calle,
         numero,
         localidad,
         provincia,
       });
-      setDomicilio(response.data.id);
-    } catch (e) {
-      console.log("Error al agregar domicilio: ", e);
-    }
 
-    try {
-      const response = await axios.post(ENDPOINTS.PACIENTE, {
+      const domicilio_id = domicilioResponse.data.data.id;
+
+      const pacienteResponse = await axios.post(ENDPOINTS.PACIENTE, {
         nombre,
         apellido,
         dni,
-        fecha,
-        domicilio,
+        fechaIngreso,
+        domicilio_id,
       });
-      console.log(response.data);
+
+      console.log("Paciente creado con éxito", pacienteResponse.data);
 
       setNombre("");
       setApellido("");
       setDni("");
-      setFecha("");
+      setFechaIngreso("");
       setCalle("");
       setNumero("");
       setLocalidad("");
       setProvincia("");
-      setDomicilio("");
-    } catch (e) {
-      console.log("Error al agregar paciente: ", e);
+      onClose();
+      onRefresh();
+      alert("Paciente creado con éxito");
+    } catch (error) {
+      console.error("Error al guardar paciente y domicilio: ", error);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="div-form">
-        <label>Nombre</label>
-        <input
-          type="text"
-          id="nombre"
-          value={nombre}
-          onChange={(e) => setNombre(e.target.value)}
-          required
-        />
-      </div>
+    <div className="modalContainer">
+      <div className="createModal">
+      <IoCloseSharp onClick={onClose}/>
+      <form onSubmit={handleSubmit}>
+        <div className="div-form">
+          <label>Nombre</label>
+          <input
+            type="text"
+            id="nombre"
+            value={nombre}
+            onChange={(e) => setNombre(e.target.value)}
+            required
+          />
+        </div>
 
-      <div className="div-form">
-        <label>Apellido</label>
-        <input
-          type="text"
-          id="apellido"
-          value={apellido}
-          onChange={(e) => setApellido(e.target.value)}
-          required
-        />
-      </div>
+        <div className="div-form">
+          <label>Apellido</label>
+          <input
+            type="text"
+            id="apellido"
+            value={apellido}
+            onChange={(e) => setApellido(e.target.value)}
+            required
+          />
+        </div>
 
-      <div className="div-form">
-        <label>DNI</label>
-        <input
-          type="text"
-          id="dni"
-          value={dni}
-          onChange={(e) => setDni(e.target.value)}
-          required
-        />
-      </div>
+        <div className="div-form">
+          <label>DNI</label>
+          <input
+            type="text"
+            id="dni"
+            value={dni}
+            onChange={(e) => setDni(e.target.value)}
+            required
+          />
+        </div>
 
-      <div className="div-form">
-        <label>Fecha de Ingreso</label>
-        <input
-          type="date"
-          id="fecha"
-          value={fecha}
-          onChange={(e) => setFecha(e.target.value)}
-          required
-        />
-      </div>
+        <div className="div-form">
+          <label>Fecha de Ingreso</label>
+          <input
+            type="date"
+            id="fechaIngreso"
+            value={fechaIngreso}
+            onChange={(e) => setFechaIngreso(e.target.value)}
+            required
+          />
+        </div>
 
-      <div className="div-form">
-        <label>Calle</label>
-        <input
-          type="text"
-          id="calle"
-          value={calle}
-          onChange={(e) => setCalle(e.target.value)}
-          required
-        />
-      </div>
+        <div className="div-form">
+          <label>Calle</label>
+          <input
+            type="text"
+            id="calle"
+            value={calle}
+            onChange={(e) => setCalle(e.target.value)}
+            required
+          />
+        </div>
 
-      <div className="div-form">
-        <label>Número</label>
-        <input
-          type="number"
-          id="numero"
-          value={numero}
-          onChange={(e) => setNumero(e.target.value)}
-          required
-        />
-      </div>
+        <div className="div-form">
+          <label>Número</label>
+          <input
+            type="number"
+            id="numero"
+            value={numero}
+            onChange={(e) => setNumero(e.target.value)}
+            required
+          />
+        </div>
 
-      <div className="div-form">
-        <label>Localidad:</label>
-        <input
-          type="text"
-          id="localidad"
-          value={localidad}
-          onChange={(e) => setLocalidad(e.target.value)}
-          required
-        />
-      </div>
+        <div className="div-form">
+          <label>Localidad:</label>
+          <input
+            type="text"
+            id="localidad"
+            value={localidad}
+            onChange={(e) => setLocalidad(e.target.value)}
+            required
+          />
+        </div>
 
-      <div className="div-form">
-        <label>Provincia:</label>
-        <input
-          type="text"
-          id="provincia"
-          value={provincia}
-          onChange={(e) => setProvincia(e.target.value)}
-          required
-        />
-      </div>
+        <div className="div-form">
+          <label>Provincia:</label>
+          <input
+            type="text"
+            id="provincia"
+            value={provincia}
+            onChange={(e) => setProvincia(e.target.value)}
+            required
+          />
+        </div>
 
-      <Boton text="Guardar Paciente" type="submit" />
-    </form>
+        <Boton text="Guardar Paciente" type="submit" />
+      </form>
+
+      </div>
+      
+    </div>
   );
 };
 

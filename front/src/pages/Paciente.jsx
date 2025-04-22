@@ -1,14 +1,15 @@
-import { Footer } from "../components/Footer";
-import GuardarPaciente from "../components/GuardarPaciente";
+import TablaPacientes from "../components/TablaPacientes";
 
-export function Paciente() {
+
+const Paciente = () => {
+  
+
   return (
-    <>
-      <div className="container-entidad">
-        <h1>Interfaz de paciente</h1>
-        <GuardarPaciente />
-      </div>
-      <Footer />
-    </>
+    <div className="interfaceContainer">
+      <h1>Interfaz de paciente</h1>      
+      <TablaPacientes />
+    </div>
   );
-}
+};
+
+export default Paciente;

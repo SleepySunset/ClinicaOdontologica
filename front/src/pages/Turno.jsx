@@ -1,17 +1,13 @@
-import { Crud } from "../components/Crud";
-import { Footer } from "../components/Footer";
+import TablaTurnos from "../components/TablaTurnos";
 
-export function Turno() {
+const Turno = () => {
+  
   return (
-    <>
-      <div className="container-entidad">
-        <Crud
-          entidad={"turno"}
-          textoRegistro={"Registrar turno"}
-          textoBuscarTodos={"Ver todos los turnos existentes"}
-        />
-      </div>
-      <Footer />
-    </>
+    <div className="interfaceContainer">
+      <h1>Interfaz de Turno</h1>      
+      <TablaTurnos />
+    </div>
   );
-}
+};
+
+export default Turno;

@@ -1,17 +1,12 @@
-import { Crud } from "../components/Crud";
-import { Footer } from "../components/Footer";
+import TablaOdontologos from "../components/TablaOdontologos";
 
-export function Odontologo() {
+const Odontologo = () => {
   return (
-    <>
-      <div className="container-entidad">
-        <Crud
-          entidad={"odontologo"}
-          textoRegistro={"Registrar odontólogo"}
-          textoBuscarTodos={"Ver todos los odontólogos existentes"}
-        />
-      </div>
-      <Footer />
-    </>
+    <div className="interfaceContainer">
+      <h1>Interfaz de odontólogo</h1>      
+      <TablaOdontologos />
+    </div>
   );
-}
+};
+
+export default Odontologo;

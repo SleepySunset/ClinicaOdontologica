@@ -1,0 +1,88 @@
+.modalContainer{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.createModal {
+  background: $secondary-color;
+  padding: 2rem;
+  padding-top: 3rem;
+  border-radius: 1.5rem;
+  width: 90%;
+  max-width: 600px;
+  max-height: 80vh;
+  overflow-y: auto; 
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  position: relative;
+  animation: popUp 0.3s ease-out;
+  z-index: 1000;
+
+
+  svg {
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+    color:$primary-color;
+    transition: transform 0.2s ease;
+
+    &:hover {
+      transform: scale(1.2);
+      color: $hover;
+    }
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+
+    .div-form {
+      display: flex;
+      flex-direction: column;
+
+      label {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: $primary-color;
+        margin-bottom: 0.4rem;
+      }
+
+      input {
+        padding: 0.7rem 1rem;
+        border: 1px solid $primary-color;
+        border-radius: 0.8rem;
+        outline: none;
+        font-size: 1rem;
+        background-color: #fff;
+        transition: all 0.3s ease;
+
+        &:focus {
+          border-color: $hover;
+          box-shadow: 0 0 0 3px rgba(159, 122, 234, 0.2);
+        }
+      }
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -45%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}

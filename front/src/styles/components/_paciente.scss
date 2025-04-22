@@ -1,8 +1,13 @@
-.container-entidad {
+.interfaceContainer {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   width: 60%;
-  margin: 3rem 0;
+  border-radius: 20px;
+  margin: 2rem 0;
+  h1{
+    font-family: $primary-font;
+    margin-top: 2rem;
+    color: $primary-color;
+  }
 }

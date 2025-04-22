@@ -1,6 +1,6 @@
-const Boton = ({ text, manejarClick, visibilidad }) => {
+const Boton = ({ text, onClick, visibility }) => {
   return (
-    <button className="btn" onClick={manejarClick} hidden={visibilidad}>
+    <button className="btn" onClick={onClick} hidden={visibility}>
       {text}
     </button>
   );
