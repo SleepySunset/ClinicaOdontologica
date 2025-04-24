@@ -34,7 +34,7 @@ const TablaOdontologos = () => {
     };
 
     fetchOdontologos();
-  }, [openCreate, editId]);
+  }, [refresh]);
 
   const filterLowCase = filter.toLowerCase();
 

@@ -11,6 +11,8 @@ const EditarTurno = ({ onClose, id, onRefresh }) => {
   const [pacienteId, setPacienteId] = useState("");
   const [odontologoId, setOdontologoId] = useState("");
   const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     const fetchTurnoId = async () => {
@@ -27,8 +29,10 @@ const EditarTurno = ({ onClose, id, onRefresh }) => {
 
         setPacienteId(response.data.data.paciente.id);
         setOdontologoId(response.data.data.odontologo.id);
-      } catch (e) {
-        console.log(e);
+      } catch {
+        setErrorMessage(
+          "Error al obtener los datos del turno, por favor intenta de nuevo"
+        );
       } finally {
         setLoading(false);
       }
@@ -36,8 +40,36 @@ const EditarTurno = ({ onClose, id, onRefresh }) => {
     fetchTurnoId();
   }, [id]);
 
+  const validate = () => {
+    const newErrors = {};
+
+    if (!pacienteId) {
+      newErrors.pacienteId = "El id del paciente es obligatorio";
+    } else if (!/^\d+$/.test(pacienteId)) {
+      newErrors.pacienteId = "El id solo debe contener números";
+    }
+
+    if (!odontologoId) {
+      newErrors.odontologoId = "El id del odontólogo es obligatorio";
+    } else if (!/^\d+$/.test(odontologoId)) {
+      newErrors.odontologoId = "El id solo debe contener números";
+    }
+
+    if (!fecha.trim()) {
+      newErrors.fecha = "La fecha es obligatoria";
+    }
+
+    if (!hora.trim()) {
+      newErrors.hora = "La hora es obligatoria";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!validate()) return;
 
     const localDateTime = new Date(`${fecha}T${hora}`);
     const utcDateTime = localDateTime.toISOString();
@@ -54,11 +86,27 @@ const EditarTurno = ({ onClose, id, onRefresh }) => {
       setFecha("");
       setPacienteId("");
       setOdontologoId("");
+      setErrors({});
       onClose();
       onRefresh();
       alert("Turno actualizado con éxito");
     } catch (error) {
-      console.error("Error al actualizar turno: ", error);
+      const newErrors = {};
+      if (
+        error.response.data.errors[0].msg ===
+        "El paciente_id no existe en la base de datos"
+      ) {
+        newErrors.pacienteId = "El paciente no es válido";
+      } else if (
+        error.response.data.errors[0].msg ===
+        "El odontologo_id no existe en la base de datos"
+      ) {
+        newErrors.odontologoId = "El odontólogo no es válido";
+      } else {
+        newErrors.general =
+          "Error inesperado al actualizar el turno, por favor intente de nuevo";
+      }
+      setErrors(newErrors);
     }
   };
 
@@ -66,12 +114,19 @@ const EditarTurno = ({ onClose, id, onRefresh }) => {
     <div className="modalContainer">
       <div className="createModal">
         <IoCloseSharp onClick={onClose} />
-        {loading ? (
+        {loading || errorMessage ? (
           <div className="loading">
-            <ClipLoader size={50} color={"#3e7cd4"} />
-            <p>
-              Conectando con la base de datos, por favor espera unos segundos...
-            </p>
+            {loading ? (
+              <>
+                <ClipLoader size={50} color={"#3e7cd4"} />
+                <p>
+                  Conectando con la base de datos, por favor espera unos
+                  segundos...
+                </p>
+              </>
+            ) : (
+              <p>{errorMessage}</p>
+            )}
           </div>
         ) : (
           <form onSubmit={handleSubmit}>
@@ -79,33 +134,37 @@ const EditarTurno = ({ onClose, id, onRefresh }) => {
               <label>Paciente ID</label>
               <input
                 type="text"
-                id="nombre"
+                id="pacienteid"
                 value={pacienteId}
                 onChange={(e) => setPacienteId(e.target.value)}
-                required
               />
+              {errors.pacienteId && (
+                <small className="error">{errors.pacienteId}</small>
+              )}
             </div>
 
             <div className="div-form">
               <label>Odontólogo ID</label>
               <input
                 type="text"
-                id="apellido"
+                id="odontologoid"
                 value={odontologoId}
                 onChange={(e) => setOdontologoId(e.target.value)}
-                required
               />
+              {errors.odontologoId && (
+                <small className="error">{errors.odontologoId}</small>
+              )}
             </div>
 
             <div className="div-form">
               <label>Fecha</label>
               <input
                 type="date"
-                id="matricula"
+                id="fecha"
                 value={fecha}
                 onChange={(e) => setFecha(e.target.value)}
-                required
               />
+              {errors.fecha && <small className="error">{errors.fecha}</small>}
             </div>
 
             <div className="div-form">
@@ -115,8 +174,8 @@ const EditarTurno = ({ onClose, id, onRefresh }) => {
                 id="hora"
                 value={hora}
                 onChange={(e) => setHora(e.target.value)}
-                required
               />
+              {errors.hora && <small className="error">{errors.hora}</small>}
             </div>
 
             <Boton text="Actualizar Turno" type="submit" />

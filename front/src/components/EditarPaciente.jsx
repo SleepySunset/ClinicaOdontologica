@@ -16,6 +16,8 @@ const EditarPaciente = ({ onClose, id, onRefresh }) => {
   const [localidad, setLocalidad] = useState("");
   const [provincia, setProvincia] = useState("");
   const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     const fetchPacienteId = async () => {
@@ -31,8 +33,10 @@ const EditarPaciente = ({ onClose, id, onRefresh }) => {
         setNumero(response.data.data.domicilio.numero);
         setLocalidad(response.data.data.domicilio.localidad);
         setProvincia(response.data.data.domicilio.provincia);
-      } catch (e) {
-        console.log(e);
+      } catch {
+        setErrorMessage(
+          "Error al obtener los datos del odontólogo, por favor intenta de nuevo"
+        );
       } finally {
         setLoading(false);
       }
@@ -40,8 +44,62 @@ const EditarPaciente = ({ onClose, id, onRefresh }) => {
     fetchPacienteId();
   }, [id]);
 
+  const validate = () => {
+    const newErrors = {};
+
+    if (!nombre.trim()) {
+      newErrors.nombre = "El nombre es obligatorio";
+    } else if (!/^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/.test(nombre)) {
+      newErrors.nombre = "El nombre sólo debe contener letras";
+    }
+
+    if (!apellido.trim()) {
+      newErrors.apellido = "El apellido es obligatorio";
+    } else if (!/^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/.test(apellido)) {
+      newErrors.apellido = "El apellido sólo debe contener letras";
+    }
+
+    if (!dni.trim()) {
+      newErrors.dni = "El DNI es obligatorio";
+    } else if (!/^\d{4,10}$/.test(dni)) {
+      newErrors.dni = "Debe contener sólo números (4 a 10 dígitos)";
+    }
+
+    if (!fechaIngreso.trim()) {
+      newErrors.fechaIngreso = "La fecha de ingreso es obligatoria";
+    }
+
+    if (!calle.trim()) {
+      newErrors.calle = "La calle es obligatoria";
+    } else if (!/^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/.test(calle)) {
+      newErrors.calle = "La calle sólo debe contener letras";
+    }
+
+    if (!numero) {
+      newErrors.numero = "El número es obligatorio";
+    } else if (!/^\d{1,4}$/.test(numero)) {
+      newErrors.numero = "Debe contener sólo números (1 a 4 dígitos)";
+    }
+
+    if (!localidad.trim()) {
+      newErrors.localidad = "La localidad es obligatoria";
+    } else if (!/^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/.test(localidad)) {
+      newErrors.localidad = "La localidad sólo debe contener letras";
+    }
+
+    if (!provincia.trim()) {
+      newErrors.provincia = "La provincia es obligatoria";
+    } else if (!/^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/.test(provincia)) {
+      newErrors.provincia = "La provincia sólo debe contener letras";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!validate()) return;
 
     try {
       const domicilioResponse = await axios.put(
@@ -77,8 +135,10 @@ const EditarPaciente = ({ onClose, id, onRefresh }) => {
       onClose();
       onRefresh();
       alert("Paciente actualizado con éxito");
-    } catch (error) {
-      console.error("Error al actualizar paciente y domicilio: ", error);
+    } catch {
+      alert(
+        "Error al actualizar paciente y domicilio, por favor intenta de nuevo "
+      );
     }
   };
 
@@ -86,13 +146,20 @@ const EditarPaciente = ({ onClose, id, onRefresh }) => {
     <div className="modalContainer">
       <div className="createModal">
         <IoCloseSharp onClick={onClose} />
-        {loading ? (
+        {loading || errorMessage ? (
           <div className="loading">
-          <ClipLoader size={50} color={"#3e7cd4"} />
-          <p>
-            Conectando con la base de datos, por favor espera unos segundos...
-          </p>
-        </div>
+            {loading ? (
+              <>
+                <ClipLoader size={50} color={"#3e7cd4"} />
+                <p>
+                  Conectando con la base de datos, por favor espera unos
+                  segundos...
+                </p>
+              </>
+            ) : (
+              <p>{errorMessage}</p>
+            )}
+          </div>
         ) : (
           <form onSubmit={handleSubmit}>
             <div className="div-form">
@@ -102,8 +169,10 @@ const EditarPaciente = ({ onClose, id, onRefresh }) => {
                 id="nombre"
                 value={nombre}
                 onChange={(e) => setNombre(e.target.value)}
-                required
               />
+              {errors.nombre && (
+                <small className="error">{errors.nombre}</small>
+              )}
             </div>
 
             <div className="div-form">
@@ -113,8 +182,10 @@ const EditarPaciente = ({ onClose, id, onRefresh }) => {
                 id="apellido"
                 value={apellido}
                 onChange={(e) => setApellido(e.target.value)}
-                required
               />
+              {errors.apellido && (
+                <small className="error">{errors.apellido}</small>
+              )}
             </div>
 
             <div className="div-form">
@@ -124,8 +195,8 @@ const EditarPaciente = ({ onClose, id, onRefresh }) => {
                 id="dni"
                 value={dni}
                 onChange={(e) => setDni(e.target.value)}
-                required
               />
+              {errors.dni && <small className="error">{errors.dni}</small>}
             </div>
 
             <div className="div-form">
@@ -135,8 +206,10 @@ const EditarPaciente = ({ onClose, id, onRefresh }) => {
                 id="fechaIngreso"
                 value={fechaIngreso}
                 onChange={(e) => setFechaIngreso(e.target.value)}
-                required
               />
+              {errors.fechaIngreso && (
+                <small className="error">{errors.fechaIngreso}</small>
+              )}
             </div>
 
             <div className="div-form">
@@ -146,8 +219,8 @@ const EditarPaciente = ({ onClose, id, onRefresh }) => {
                 id="calle"
                 value={calle}
                 onChange={(e) => setCalle(e.target.value)}
-                required
               />
+              {errors.calle && <small className="error">{errors.calle}</small>}
             </div>
 
             <div className="div-form">
@@ -157,8 +230,10 @@ const EditarPaciente = ({ onClose, id, onRefresh }) => {
                 id="numero"
                 value={numero}
                 onChange={(e) => setNumero(e.target.value)}
-                required
               />
+              {errors.numero && (
+                <small className="error">{errors.numero}</small>
+              )}
             </div>
 
             <div className="div-form">
@@ -168,8 +243,10 @@ const EditarPaciente = ({ onClose, id, onRefresh }) => {
                 id="localidad"
                 value={localidad}
                 onChange={(e) => setLocalidad(e.target.value)}
-                required
               />
+              {errors.localidad && (
+                <small className="error">{errors.localidad}</small>
+              )}
             </div>
 
             <div className="div-form">
@@ -179,8 +256,10 @@ const EditarPaciente = ({ onClose, id, onRefresh }) => {
                 id="provincia"
                 value={provincia}
                 onChange={(e) => setProvincia(e.target.value)}
-                required
               />
+              {errors.provincia && (
+                <small className="error">{errors.provincia}</small>
+              )}
             </div>
 
             <Boton text="Actualizar Paciente" type="submit" />

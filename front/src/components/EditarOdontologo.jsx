@@ -10,6 +10,8 @@ const EditarOdontologo = ({ onClose, id, onRefresh }) => {
   const [apellido, setApellido] = useState("");
   const [matricula, setMatricula] = useState("");
   const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     const fetchOdontologoId = async () => {
@@ -19,9 +21,10 @@ const EditarOdontologo = ({ onClose, id, onRefresh }) => {
         setNombre(response.data.data.nombre);
         setApellido(response.data.data.apellido);
         setMatricula(response.data.data.matricula);
-
-      } catch (e) {
-        console.log(e);
+      } catch {
+        setErrorMessage(
+          "Error al obtener los datos del odontólogo, por favor intenta de nuevo "
+        );
       } finally {
         setLoading(false);
       }
@@ -29,15 +32,44 @@ const EditarOdontologo = ({ onClose, id, onRefresh }) => {
     fetchOdontologoId();
   }, [id]);
 
+  const validate = () => {
+    const newErrors = {};
+
+    if (!nombre.trim()) {
+      newErrors.nombre = "El nombre es obligatorio";
+    } else if (!/^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/.test(nombre)) {
+      newErrors.nombre = "El nombre solo debe contener letras";
+    }
+
+    if (!apellido.trim()) {
+      newErrors.apellido = "El apellido es obligatorio";
+    } else if (!/^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/.test(apellido)) {
+      newErrors.apellido = "El apellido solo debe contener letras";
+    }
+
+    if (!matricula.trim()) {
+      newErrors.matricula = "La matrícula es obligatoria";
+    } else if (!/^\d{4,10}$/.test(matricula)) {
+      newErrors.matricula = "Debe contener solo números (4 a 10 dígitos)";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!validate()) return;
 
     try {
-      const odontologoResponse = await axios.put(`${ENDPOINTS.ODONTOLOGO}/${id}`, {
-        nombre,
-        apellido,
-        matricula
-      });
+      const odontologoResponse = await axios.put(
+        `${ENDPOINTS.ODONTOLOGO}/${id}`,
+        {
+          nombre,
+          apellido,
+          matricula,
+        }
+      );
 
       console.log("Odontólogo actualizado con éxito", odontologoResponse.data);
 
@@ -47,8 +79,8 @@ const EditarOdontologo = ({ onClose, id, onRefresh }) => {
       onClose();
       onRefresh();
       alert("Odontólogo actualizado con éxito");
-    } catch (error) {
-      console.error("Error al actualizar odontólogo: ", error);
+    } catch {
+      alert("Error al actualizar odontólogo, por favor intenta de nuevo");
     }
   };
 
@@ -56,13 +88,20 @@ const EditarOdontologo = ({ onClose, id, onRefresh }) => {
     <div className="modalContainer">
       <div className="createModal">
         <IoCloseSharp onClick={onClose} />
-        {loading ? (
+        {loading || errorMessage ? (
           <div className="loading">
-          <ClipLoader size={50} color={"#3e7cd4"} />
-          <p>
-            Conectando con la base de datos, por favor espera unos segundos...
-          </p>
-        </div>
+            {loading ? (
+              <>
+                <ClipLoader size={50} color={"#3e7cd4"} />
+                <p>
+                  Conectando con la base de datos, por favor espera unos
+                  segundos...
+                </p>
+              </>
+            ) : (
+              <p>{errorMessage}</p>
+            )}
+          </div>
         ) : (
           <form onSubmit={handleSubmit}>
             <div className="div-form">
@@ -72,8 +111,10 @@ const EditarOdontologo = ({ onClose, id, onRefresh }) => {
                 id="nombre"
                 value={nombre}
                 onChange={(e) => setNombre(e.target.value)}
-                required
               />
+              {errors.nombre && (
+                <small className="error">{errors.nombre}</small>
+              )}
             </div>
 
             <div className="div-form">
@@ -83,8 +124,10 @@ const EditarOdontologo = ({ onClose, id, onRefresh }) => {
                 id="apellido"
                 value={apellido}
                 onChange={(e) => setApellido(e.target.value)}
-                required
               />
+              {errors.apellido && (
+                <small className="error">{errors.apellido}</small>
+              )}
             </div>
 
             <div className="div-form">
@@ -94,11 +137,13 @@ const EditarOdontologo = ({ onClose, id, onRefresh }) => {
                 id="matricula"
                 value={matricula}
                 onChange={(e) => setMatricula(e.target.value)}
-                required
               />
+              {errors.matricula && (
+                <small className="error">{errors.matricula}</small>
+              )}
             </div>
 
-            <Boton text="Actualizar Odontólogo" type="submit" />
+            <Boton text="Guardar Odontólogo" type="submit" />
           </form>
         )}
       </div>
