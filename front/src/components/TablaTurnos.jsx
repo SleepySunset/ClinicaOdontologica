@@ -93,6 +93,7 @@ const TablaTurnos = () => {
           </p>
         </div>
       ) : (
+        <div className="tableResponsive">
         <table>
           <thead>
             <tr>
@@ -123,6 +124,7 @@ const TablaTurnos = () => {
             ))}
           </tbody>
         </table>
+        </div>
       )}
       {editId && <EditarTurno id={editId} onClose={() => setEditId(null)} onRefresh={() => setRefresh(!refresh)} />}
       {confirmDelete && (

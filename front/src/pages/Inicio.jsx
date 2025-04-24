@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 export function Inicio() {
   return (
     <>
-      <div className="container-inicio">
+      <div className="mainContainer">
         <img className="logobg" src="./img/logo1.png" alt="Logo OdontoSalud" />
 
-        <div className="crud">
+        <div className="auxContainer">
           <div className="texto-links">
             <p>
               OdontoSalud es una clínica odontológica desarrollada como
@@ -28,27 +28,26 @@ export function Inicio() {
               datos.
             </p>
           </div>
-          <div>
-            <img src="./img/edit.png" alt="Logo de Create"/>
-            <img src="./img/file.png" alt="Logo de Read" />
-            <img src="./img/changes.png"  alt="Logo de Update"/>
-            <img src="./img/delete.png" alt="Logo de Delete"/>
+          <div className="imgContainer">
+            <img src="./img/edit.png" alt="Logo de Create" className="logo" />
+            <img src="./img/file.png" alt="Logo de Read"  className="logo"/>
+            <img src="./img/changes.png" alt="Logo de Update" className="logo" />
+            <img src="./img/delete.png" alt="Logo de Delete"  className="logo"/>
           </div>
         </div>
-        <div className="tecnologias">
+        <div className="auxContainer">
           <div className="texto-links">
             <p>
               El backend de la aplicación se desarrolló en Node haciendo uso de
-              Express y el front se desarrolló con React y se estilizó con
-              Sass.
+              Express y el front se desarrolló con React y se estilizó con Sass.
             </p>
           </div>
-          <div>
-          <img src="/img/node.png" />
-            <img src="/img/express.png" />
-            
-            <img src="/img/react.png" />
-            <img src="/img/sass.png" />
+          <div className="imgContainer">
+            <img src="/img/node.png"  alt="Logo de Node" className="logo"/>
+            <img src="/img/express.png" alt="Logo de Express" className="logo"/>
+
+            <img src="/img/react.png" alt="Logo de React" className="logo"/>
+            <img src="/img/sass.png" alt="Logo de Sass" className="logo"/>
           </div>
         </div>
       </div>

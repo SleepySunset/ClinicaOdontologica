@@ -90,6 +90,7 @@ const TablaOdontologos = () => {
           </p>
         </div>
       ) : (
+        <div className="tableResponsive"> 
         <table>
           <thead>
             <tr>
@@ -120,6 +121,7 @@ const TablaOdontologos = () => {
             ))}
           </tbody>
         </table>
+        </div>
       )}
       {editId && (
         <EditarOdontologo

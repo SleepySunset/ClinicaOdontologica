@@ -1,8 +1,8 @@
-.loading{
+.loading {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap:15px;
+  gap: 15px;
   margin: 2rem;
 }
 
@@ -14,6 +14,8 @@
   background-color: #ffffff;
   border-radius: 1rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow-x: auto;
+    width: 100%;
 
   .filterContainer {
     margin-bottom: 1.5rem;
@@ -35,12 +37,16 @@
       }
     }
   }
+  .tableResponsive{
+    overflow-x: auto;
+    width: 100%;
+  }
 
   table {
-    width: 100%;
+    min-width: 400px;
     border-collapse: collapse;
-
-    th, td {
+    th,
+    td {
       padding: 0.75rem 1rem;
       text-align: center;
       border-bottom: 1px solid #f0f0f0;
@@ -78,7 +84,7 @@
   }
 }
 
-.modalContainer{
+.modalContainer {
   position: fixed;
   top: 0;
   left: 0;
@@ -90,44 +96,89 @@
   align-items: center;
   z-index: 999;
 
-  .deleteModal{
+  .deleteModal {
     background: $secondary-color;
     padding: 2rem;
     border-radius: 1.5rem;
     width: 90%;
     max-width: 500px;
     max-height: 80vh;
-    overflow-y: auto; 
+    overflow-y: auto;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     position: relative;
     animation: popUp 0.3s ease-out;
     z-index: 1000;
-    p{
+
+    p {
       margin-bottom: 2rem;
       text-align: center;
     }
-    .modalButtons{
+
+    .modalButtons {
       display: flex;
       justify-content: center;
-      gap:50px;
-      
-      button{
+      gap: 50px;
+
+      button {
         padding: 0.5rem 1.2rem;
         border: none;
         border-radius: 15px;
-        &:hover{
+
+        &:hover {
           cursor: pointer;
           background-color: $hover;
         }
-        
+
       }
-      .btnDelete{
+
+      .btnDelete {
         background-color: $primary-color;
         color: #FFF;
       }
-        
+
     }
   }
-  
 }
 
+
+@include media-down(md) {
+  .tableContainer{
+    max-width: 600px;
+  }
+}
+
+@include media-down(sm) {
+  .tableContainer {
+    padding: 1rem;
+    max-width: 370px;
+
+    .filterContainer {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 1rem;
+      max-width: 370px;
+
+      input {
+        width: 100%;
+      }
+    }
+    .tableResponsive{
+      width: 100%;
+      overflow-x: auto;
+      table{
+        min-width: 800px;
+       
+      }
+    }
+
+    .modalContainer .modalButtons {
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+
+      button {
+        width: 80%;
+      }
+    }
+  }
+}

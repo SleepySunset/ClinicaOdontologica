@@ -16,7 +16,7 @@ const TablaPacientes = () => {
   const [filter, setFilter] = useState("");
   const [openCreate, setOpenCreate] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
-  const [refresh, setRefresh] = useState(false)
+  const [refresh, setRefresh] = useState(false);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -90,36 +90,46 @@ const TablaPacientes = () => {
           </p>
         </div>
       ) : (
-        <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Nombre</th>
-              <th>Apellido</th>
-              <th>DNI</th>
-              <th>Modificar</th>
-              <th>Eliminar</th>
-            </tr>
-          </thead>
-          <tbody>
-            {pacientesFilter.map((paciente) => (
-              <tr key={paciente.id}>
-                <td>{paciente.id}</td>
-                <td>{paciente.nombre}</td>
-                <td>{paciente.apellido}</td>
-                <td>{paciente.dni}</td>
-                <td>
-                  <FaEdit onClick={() => handleEdit(paciente.id)} />
-                </td>
-                <td>
-                  <MdDelete onClick={() => handleConfirmDelete(paciente.id)} />
-                </td>
+        <div className="tableResponsive">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>DNI</th>
+                <th>Modificar</th>
+                <th>Eliminar</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {pacientesFilter.map((paciente) => (
+                <tr key={paciente.id}>
+                  <td>{paciente.id}</td>
+                  <td>{paciente.nombre}</td>
+                  <td>{paciente.apellido}</td>
+                  <td>{paciente.dni}</td>
+                  <td>
+                    <FaEdit onClick={() => handleEdit(paciente.id)} />
+                  </td>
+                  <td>
+                    <MdDelete
+                      onClick={() => handleConfirmDelete(paciente.id)}
+                    />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
-      {editId && <EditarPaciente id={editId} onClose={() => setEditId(null)} onRefresh={()=> setRefresh(!refresh)} />}
+      {editId && (
+        <EditarPaciente
+          id={editId}
+          onClose={() => setEditId(null)}
+          onRefresh={() => setRefresh(!refresh)}
+        />
+      )}
       {confirmDelete && (
         <div className="modalContainer">
           <div className="deleteModal">
@@ -148,7 +158,12 @@ const TablaPacientes = () => {
         </div>
       )}
 
-      {openCreate && <GuardarPaciente onClose={toggleCreateModal} onRefresh={()=> setRefresh(!refresh)}/>}
+      {openCreate && (
+        <GuardarPaciente
+          onClose={toggleCreateModal}
+          onRefresh={() => setRefresh(!refresh)}
+        />
+      )}
     </div>
   );
 };
